@@ -8,6 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>kitchenhand</module>
+		<module>butcher</module>
+		<module>baker</module>
 	</modules>
 	<packaging>pom</packaging>
 
