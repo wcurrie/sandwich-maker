@@ -11,7 +11,8 @@
 		<module>butcher</module>
 		<module>baker</module>
 		<module>candlestickmaker</module>
-	</modules>
+        <module>eurekaserver</module>
+    </modules>
 	<packaging>pom</packaging>
 
 	<name>sandwich-maker</name>

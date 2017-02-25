@@ -5,11 +5,13 @@ import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,17 +24,20 @@ public class SandwichController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     @PostMapping(produces = "application/json")
     public Map<String, Object> make() {
         LOG.info("Getting a candle to work by");
-        Map candle = restTemplate.getForObject("http://localhost:8083/candles", Map.class);
+        Map candle = restTemplate.getForObject(findInstance("candlestickmaker").resolve("/candles"), Map.class);
         LOG.info("Lighting " + candle.get("id"));
 
         LOG.info("Collecting bread");
-        Map bread = restTemplate.getForObject("http://localhost:8081/loaves", Map.class);
+        Map bread = restTemplate.getForObject(findInstance("baker").resolve("/loaves"), Map.class);
 
         LOG.info("Collecting ham");
-        Map ham = restTemplate.getForObject("http://localhost:8082/ham?slices=2", Map.class);
+        Map ham = restTemplate.getForObject(findInstance("butcher").resolve("/ham?slices=2"), Map.class);
 
         LOG.info("Making a sandwich");
         return new ImmutableMap.Builder<String, Object>()
@@ -42,5 +47,9 @@ public class SandwichController {
                         .add(ham)
                         .build())
                 .build();
+    }
+
+    private URI findInstance(String serviceId) {
+        return discoveryClient.getInstances(serviceId).get(0).getUri();
     }
 }
