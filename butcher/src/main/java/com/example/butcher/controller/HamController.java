@@ -21,8 +21,12 @@ public class HamController {
     private static final Logger LOG = LoggerFactory.getLogger(HamController.class);
     private static final Random RANDOM = new Random();
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public HamController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @GetMapping(produces = "application/json")
     public Map<String, Object> getSlices(@RequestParam("slices") int slices) throws InterruptedException {

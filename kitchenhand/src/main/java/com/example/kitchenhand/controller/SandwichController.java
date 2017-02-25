@@ -21,11 +21,14 @@ public class SandwichController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SandwichController.class);
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final DiscoveryClient discoveryClient;
 
     @Autowired
-    private DiscoveryClient discoveryClient;
+    public SandwichController(RestTemplate restTemplate, DiscoveryClient discoveryClient) {
+        this.restTemplate = restTemplate;
+        this.discoveryClient = discoveryClient;
+    }
 
     @PostMapping(produces = "application/json")
     public Map<String, Object> make() {

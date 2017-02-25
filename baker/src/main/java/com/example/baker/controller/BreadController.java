@@ -20,8 +20,12 @@ public class BreadController {
     private static final Logger LOG = LoggerFactory.getLogger(BreadController.class);
     private static final Random RANDOM = new Random();
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public BreadController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @GetMapping(produces = "application/json")
     public Map<String, Object> make() throws InterruptedException {
