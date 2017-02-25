@@ -24,6 +24,10 @@ public class SandwichController {
 
     @PostMapping(produces = "application/json")
     public Map<String, Object> make() {
+        LOG.info("Getting a candle to work by");
+        Map candle = restTemplate.getForObject("http://localhost:8083/candles", Map.class);
+        LOG.info("Lighting " + candle.get("id"));
+
         LOG.info("Collecting bread");
         Map bread = restTemplate.getForObject("http://localhost:8081/loaves", Map.class);
 

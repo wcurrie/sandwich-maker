@@ -10,6 +10,7 @@
 		<module>kitchenhand</module>
 		<module>butcher</module>
 		<module>baker</module>
+		<module>candlestickmaker</module>
 	</modules>
 	<packaging>pom</packaging>
 
