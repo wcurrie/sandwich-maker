@@ -31,6 +31,14 @@ A trace of with concurrent HTTP calls from RxJava (curl -XPOST localhost:8080/sa
 
 ![concurrent flow](https://github.com/wcurrie/sandwich-maker/blob/master/turbo-sandwich.png "concurrent flow")
 
+## Weave Scope
+
+See how the containers are connected using weave scope:
+
+    sudo curl -L git.io/scope -o /usr/local/bin/scope
+    sudo chmod a+x /usr/local/bin/scope
+    scope launch
+    open http://localhost:4040
 
 ## Resources
 
