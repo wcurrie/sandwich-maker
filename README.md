@@ -1,6 +1,6 @@
 # Zipkin Experiment
 
-What is zipkin: [one explanation](http://ryanjbaxter.com/cloud/spring%20cloud/spring/2016/07/07/spring-cloud-sleuth.html)
+What is zipkin?: [one explanation](http://ryanjbaxter.com/cloud/spring%20cloud/spring/2016/07/07/spring-cloud-sleuth.html)
 
 Couple of spring boot services with silly names: butcher, baker, candlestickmaker and kitchenhand.
 
@@ -16,6 +16,21 @@ Look at zipkin trace by visiting http://localhost:9411. Grab a trace ID from the
     kitchenhand_1       | 2017-02-26 04:49:32.757  INFO [kitchenhand,6fe09cac9d9b37d3,6fe09cac9d9b37d3,true] 1 --- [readScheduler-2] c.e.k.controller.SandwichController      : Collecting ham
 
 Compare with curl -XPOST localhost:8080/sandwiches?turbo=true (tip: it's not actually much faster)
+
+## What should I see?
+
+The communication paths between the services: 
+
+![zipkin dependencies](https://github.com/wcurrie/sandwich-maker/blob/master/zipkin-dependencies.png "zipkin's dependency view")
+
+A trace of the purely sequential flow (curl -XPOST localhost:8080/sandwiches):
+
+![sequential flow](https://github.com/wcurrie/sandwich-maker/blob/master/sequential-sandwich.png "sequential flow")
+
+A trace of with concurrent HTTP calls from RxJava (curl -XPOST localhost:8080/sandwiches?turbo=true):
+
+![concurrent flow](https://github.com/wcurrie/sandwich-maker/blob/master/turbo-sandwich.png "concurrent flow")
+
 
 ## Resources
 
