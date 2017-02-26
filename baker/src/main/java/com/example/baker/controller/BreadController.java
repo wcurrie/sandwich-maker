@@ -4,11 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -21,16 +23,19 @@ public class BreadController {
     private static final Random RANDOM = new Random();
 
     private final RestTemplate restTemplate;
+    private final DiscoveryClient discoveryClient;
 
     @Autowired
-    public BreadController(RestTemplate restTemplate) {
+    public BreadController(RestTemplate restTemplate, DiscoveryClient discoveryClient) {
         this.restTemplate = restTemplate;
+        this.discoveryClient = discoveryClient;
     }
 
     @GetMapping(produces = "application/json")
     public Map<String, Object> make() throws InterruptedException {
         LOG.info("Getting a candle to work by");
-        Map candle = restTemplate.getForObject("http://localhost:8083/candles", Map.class);
+        URI uri = discoveryClient.getInstances("candlestickmaker").get(0).getUri();
+        Map candle = restTemplate.getForObject(uri.resolve("/candles"), Map.class);
         LOG.info("Lighting " + candle.get("id"));
         LOG.info("Baking loaf");
         Thread.sleep(RANDOM.nextInt(5) * 1000);
