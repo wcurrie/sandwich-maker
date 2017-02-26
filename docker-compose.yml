@@ -1,0 +1,20 @@
+version: '2'
+services:
+  eureka:
+    image: 'eureka'
+    ports:
+    - '8761:8761'
+  candlestickmaker:
+    image: 'candlestickmaker'
+  butcher:
+    image: 'butcher'
+  baker:
+    image: 'baker'
+  kitchenhand:
+    image: 'kitchenhand'
+    ports:
+      - '8080:8080'
+  zipkin:
+    image: 'openzipkin/zipkin'
+    ports:
+      - '9411:9411'

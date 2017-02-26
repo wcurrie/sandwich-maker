@@ -1,5 +1,7 @@
 # Zipkin Experiment
 
+What is zipkin: [one explanation](http://ryanjbaxter.com/cloud/spring%20cloud/spring/2016/07/07/spring-cloud-sleuth.html)
+
 Couple of spring boot services with silly names: butcher, baker, candlestickmaker and kitchenhand.
 
 ## Resources
@@ -13,6 +15,8 @@ Use https://github.com/openzipkin/zipkin/tree/master/zipkin-server
 
     wget -O zipkin.jar 'https://search.maven.org/remote_content?g=io.zipkin.java&a=zipkin-server&v=LATEST&c=exec'
     java -jar zipkin.jar
+    
+https://github.com/openzipkin/docker-zipkin    
     
 ### Eureka
 https://spring.io/blog/2015/01/20/microservice-registration-and-discovery-with-spring-cloud-and-netflix-s-eureka
